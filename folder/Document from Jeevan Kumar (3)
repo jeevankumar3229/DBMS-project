@@ -1,0 +1,149 @@
+<?php 
+	require_once "config.php";
+	$emp_id=$emp_name=$emp_mail=$emp_phone=$emp_password=$emp_confirm_password="";
+	$emp_id_err=$emp_name_err=$emp_mail_err=$emp_phone_err=$emp_password_err=$emp_confirm_password_err="";
+	
+
+    if ($_SERVER['REQUEST_METHOD'] =="POST"){
+
+
+        //Check if username is empty
+        if(empty(trim($_POST["emp_id"])))
+		{
+			$emp_id_err="Employee id cannot be blank";
+
+		}
+		else
+		{
+			$sql= "SELECT id from employee WHERE emp_id = ?";
+			$stmt=mysqli_prepare($conn,$sql);
+			if($stmt)
+			{
+				mysqli_stmt_bind_param($stmt,"s",$param_emp_id);
+				
+				//set the value of param_emp_id
+				$param_emp_id=trim($_POST['emp_id']);
+
+				//Try to execute the statement
+				if(mysqli_stmt_execute($stmt))
+				{
+					mysqli_stmt_store_result($stmt);
+					if(mysqli_stmt_num_rows($stmt)==1)
+					{
+						$emp_id_err="This is primary key field";
+					}
+					else
+					{
+							$emp_id=trim($_POST['emp_id']);
+					}
+
+				}
+				else
+				{
+					echo "Something went wrong";
+				}
+			}
+		}
+		mysqli_stmt_close($stmt);
+
+    
+	
+
+	//check for password
+	if(empty(trim($_POST['emp_password'])))
+	{
+		$emp_password_err="Password cannot be empty";
+	}
+	elseif(strlen(trim($_POST['emp_password'])) < 5)
+	{
+		$emp_password_err="Password cannot be less than 5 character";
+	}
+	else
+	{
+		$emp_password=trim($_POST['emp_password']);
+	}
+
+
+	//check for confirm password field
+	if(trim($_POST['emp_confirm_password']) != trim($_POST['emp_password']))
+	{
+		$emp_password_err="Passwords should match";
+	}
+
+	//check for the name
+	if(empty(trim($_POST['emp_name'])))
+	{
+		$emp_name_err="Name field cannot be blank";
+	}
+	else
+	{
+		$emp_name=trim($_POST['emp_name']);
+	}
+
+	//check for the email
+	if(empty(trim($_POST['emp_mail'])))
+	{
+		$emp_mail_err="Email field cannot be blank";
+	}
+	else
+	{
+		$emp_email=trim($_POST['emp_mail']);
+	}
+
+	if(empty(trim($_POST['emp_phone'])))
+	{
+		$emp_phone_err="phone number field cannot be blank";
+	}
+	else
+	{
+		$emp_phone=trim($_POST['emp_phone']);
+	}
+
+	//if all of then insert
+	if(empty($emp_id_err) && empty($emp_name_err) && empty($emp_password_err) && empty($emp_confirm_password_err) && empty($emp_mail_err) && empty($emp_phone_err))
+	{
+		$sql = " INSERT INTO employee (emp_id, emp_name, emp_mail, emp_phone,emp_password) VALUES (?, ?, ?, ?, ?)";
+		$stmt = mysqli_prepare($conn,$sql);
+		if($stmt)
+		{
+			mysqli_stmt_bind_param($stmt, "sssss", $param_emp_id, $param_emp_name, $param_emp_mail, $param_emp_phone, $param_emp_password);
+
+
+			//set these param parameters
+			$param_emp_id=$emp_id;
+			$param_emp_name=$emp_name;
+			$param_emp_mail=$emp_email;
+			$param_emp_phone=$emp_phone;
+			$param_emp_password=$emp_password;
+
+
+			
+			//Try to execute the query
+			if(mysqli_stmt_execute($stmt))
+			{
+				header("location: main.html");
+
+			}
+			else
+			{
+				echo "Something went wrong......cannot redirect!";
+			}
+
+
+
+		}
+		mysqli_stmt_close($stmt);
+
+	}
+	mysqli_close($conn);
+}
+
+
+
+
+
+
+
+
+?>
+
