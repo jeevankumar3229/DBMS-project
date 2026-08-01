@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Donors View</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html, body {
+            height: 100%; width: 100%; margin: 0; padding: 0; overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/donar2.jpg);
+            background-size: cover; background-position: center; background-repeat: no-repeat; background-attachment: fixed;
+            min-height: 100vh;
+        }
+        
+        .navbar {
+            position: fixed; height: 70px; width: 100%; top: 0; left: 0;
+            background: rgba(158, 200, 228, 0.7); backdrop-filter: blur(5px); z-index: 1000;
+            display: flex; align-items: center; justify-content: flex-end; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .navbar ul { list-style: none; margin: 0; padding-right: 40px; }
+        .navbar ul li a {
+            display: inline-flex; align-items: center; gap: 10px; font-size: 18px; color: white;
+            background: #2691d9; padding: 8px 22px; text-decoration: none; border-radius: 20px;
+            transition: all 0.3s ease; box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .navbar ul li a:hover { background: rgb(60, 63, 55); transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+        .navbar ul li a i { margin-right: 6px; }
+
+        h1 { color: #fff; margin-top: 100px; text-align: center; font-size: 36px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+
+        table {
+            background-color: rgba(255, 255, 255, 0.95); border-collapse: collapse; margin: 30px auto;
+            border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        th, td { padding: 12px 15px; border: 1px solid #ddd; text-align: center; }
+        th { background-color: #2691d9; color: white; font-size: 16px; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/dash4"><i class="fa fa-backward" aria-hidden="true"></i> <b>Back</b></a></li>
+            </ul>
+        </nav>
+    </div>
+    <h1>All Donor Records</h1>
+    <table width="92%" align="center">
+        <tr>
+            <th>FIRSTNAME</th>
+            <th>LASTNAME</th>
+            <th>GENDER</th>
+            <th>DONORID</th>
+            <th>DOB</th>
+            <th>BLOODTYPE</th>
+            <th>LOCATION</th>
+            <th>PHONE</th>
+        </tr>
+        <% if (donors && donors.length > 0) { %>
+            <% donors.forEach(donor => { %>
+                <tr>
+                    <td><%= donor.FIRSTNAME %></td>
+                    <td><%= donor.LASTNAME %></td>
+                    <td><%= donor.GENDER %></td>
+                    <td><%= donor.DONORID %></td>
+                    <td><%= new Date(donor.DOB).toISOString().split('T')[0] %></td>
+                    <td><%= donor.BLOODTYPE %></td>
+                    <td><%= donor.LOCATION %></td>
+                    <td><%= donor.PHONE %></td>
+                </tr>
+            <% }); %>
+        <% } else { %>
+            <tr><td colspan="8">No Donor records found in database.</td></tr>
+        <% } %>
+    </table>
+</body>
+</html>

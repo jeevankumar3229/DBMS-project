@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Life Donor</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-size: 15px;
+            font-family:'Poppins', sans-serif; 
+            background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(/images/donar2.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            position: fixed;
+            height: 70px;
+            width: 100%;
+            top: 0;
+            left: 0;
+            background: rgba(158, 200, 228, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding-right: 40px;
+        }
+        .navbar ul li a {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            color: white;
+            background: #2691d9;
+            padding: 8px 22px;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+        .navbar ul li a:hover {
+            background: rgb(60, 63, 55);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .navbar ul li a i {
+            margin-right: 6px;
+        }
+
+        .container { width: 80%; max-width: 1000px; margin: 60px auto; padding-top: 50px; }
+        .contact-box { background: white; display: flex; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.3); }
+        .contact-left { flex-basis: 60%; padding: 40px 50px; }
+        .contact-right { flex-basis: 40%; padding: 40px; background: rgba(158, 200, 228, 0.85); color: rgb(12, 1, 1); }
+        h1 { margin-bottom: 10px; color: #fff; text-shadow: 1px 1px 3px rgba(0,0,0,0.5); }
+        .container p { margin-bottom: 30px; color: #fff; }
+        .input-row { display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .input-row .input-group { flex-basis: 48%; }
+        input { width: 100%; border: none; border-bottom: 2px solid #ccc; outline: none; padding: 8px 0; font-size: 14px; }
+        textarea { width: 100%; border: 1px solid #ccc; outline: none; padding: 10px; box-sizing: border-box; font-size: 14px; border-radius: 4px; }
+        label { margin-bottom: 6px; display: block; color: grey; font-weight: 600; }
+        input[type='submit'] {
+            background: #2691d9; width: 120px; border: none; outline: none;
+            color: white; height: 40px; border-radius: 20px; margin-top: 20px;
+            font-weight: bold; cursor: pointer; transition: 0.3s;
+        }
+        input[type='submit']:hover { background: #1c75b0; }
+        .contact-left h3 { font-weight: 600; margin-bottom: 25px; color: #444; }
+        .contact-right h3 { font-weight: 700; margin-bottom: 25px; color: #222; }
+        tr td:first-child { padding-right: 15px; font-weight: bold; }
+        tr td { padding-top: 20px; vertical-align: top; }
+    </style>
+</head>
+<body>
+    <div>
+        <nav class="navbar">
+            <ul>
+                <li><a href="/"><i class="fa fa-backward" aria-hidden="true"></i> <b>Back</b></a></li>
+            </ul>
+        </nav>
+    </div>
+    <div class="container">
+        <h1>Connect With Us</h1>
+        <p>We would love to respond to your queries and help you succeed.<br>Feel free to get in touch with us.</p>
+        
+        <% if (locals.success) { %>
+            <script>alert('<%= success %>');</script>
+        <% } %>
+
+        <div class="contact-box">
+            <div class="contact-left">
+                <h3>Send Your Request</h3>
+                <form action="/contact" method="POST">
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="Enter Your Name" required name="name">
+                        </div>
+                        <div class="input-group">
+                            <label>Phone</label>
+                            <input type="tel" placeholder="Enter Phone Number" required name="phone">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="Enter Your Email" required name="email">
+                        </div>
+                        <div class="input-group">
+                            <label>Subject</label>
+                            <input type="text" placeholder="Enter Subject" required name="subject">
+                        </div>
+                    </div>
+                    <label>Message</label>
+                    <textarea rows="4" placeholder="Your Message" required name="message"></textarea>
+                    <input type="submit" name="send" value="SEND">
+                </form>
+            </div>
+            <div class="contact-right">
+                <h3>Reach Us</h3>
+                <table>
+                    <tr>
+                        <td><i class="fa fa-envelope" aria-hidden="true"></i> Email</td>
+                        <td>jeevankumar3229@gmail.com</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-phone" aria-hidden="true"></i> Phone</td>
+                        <td>+91 9XXXXXXXXX</td>
+                    </tr>
+                    <tr>
+                        <td><i class="fa fa-map-marker" aria-hidden="true"></i> Address</td>
+                        <td>Mangalore, Karnataka, India.</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

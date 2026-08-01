@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donor Dashboard - Life Donor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <style>
+        body {
+            margin: 0; padding: 0; font-family: "Roboto", sans-serif;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/donar2.jpg);
+            overflow: hidden; background-size: cover;
+        }
+        header {
+            position: fixed; background: rgba(158, 200, 228, 0.85); padding: 20px;
+            width: 100%; height: 30px; z-index: 100;
+        }
+        .leftarea h3 { color: #fff; margin: 0; text-transform: uppercase; font-size: 27px; font-weight: 900; }
+        .leftarea span { color: rgb(100, 201, 248); }
+        .sidebar {
+            background: rgba(158, 200, 228, 0.85); margin-top: 70px; padding-top: 30px;
+            position: fixed; left: 0; width: 280px; height: 100%; transition: 0.5s;
+        }
+        .sidebar .profilephoto { width: 90px; height: 100px; border-radius: 100px; margin-bottom: 10px; }
+        .sidebar h4 { color: #fff; margin-top: 0; margin-bottom: 20px; text-align: center; }
+        nav { width: 280px; position: absolute; }
+        nav ul { list-style-type: none; padding: 0; margin: 0; }
+        nav ul li a {
+            display: flex; align-items: center; font-size: 1.1em; text-decoration: none;
+            color: #fff; padding: 15px 25px; transition: 0.3s;
+        }
+        nav ul li a:hover { background: rgb(100, 201, 248); }
+        nav ul ul {
+            display: none; background: rgba(100, 201, 248, 0.95); list-style: none; padding: 0;
+        }
+        nav ul .dropdown:hover ul { display: block; }
+        .content { margin-left: 280px; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        .welcome-card { background: rgba(255,255,255,0.9); padding: 40px; border-radius: 15px; text-align: center; max-width: 500px; }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="leftarea">
+            <h3>Life <span>Donor</span></h3>
+        </div>
+    </header>
+    <div class="sidebar">
+        <center>
+            <img src="/images/login2.jpg" class="profilephoto" alt="Profile">
+            <h4><%= email %></h4>
+        </center>
+        <nav>
+            <ul>
+                <li class="dropdown">
+                    <a href="#"><i class="fas fa-user-alt" style="margin-right:15px;"></i>Donor Details <span style="margin-left:auto;">&rsaquo;</span></a>
+                    <ul>
+                        <li><a href="/donor5"><i class="fab fa-wpforms" style="margin-right:10px;"></i>Add Details</a></li>
+                        <li><a href="/donordata"><i class="fab fa-wpforms" style="margin-right:10px;"></i>Update Details</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a href="#"><i class="fas fa-user-shield" style="margin-right:15px;"></i>Power Of Attorney <span style="margin-left:auto;">&rsaquo;</span></a>
+                    <ul>
+                        <li><a href="/poa"><i class="fab fa-wpforms" style="margin-right:10px;"></i>Add Details</a></li>
+                        <li><a href="/poadata"><i class="fab fa-wpforms" style="margin-right:10px;"></i>Update Details</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="/logout"><i class="fas fa-sign-out-alt" style="margin-right:15px;"></i>Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="content">
+        <div class="welcome-card">
+            <h2>Welcome, <%= email %></h2>
+            <p>Use the sidebar menu on the left to manage your donor profile or Power of Attorney (POA) details.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Life Donor - Organ Donation Management System</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+			overflow: hidden;
+			font-family: 'Roboto', sans-serif;
+		}
+
+		.wrapper {
+			background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(/images/donar2.jpg);
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			width: 100vw;
+			height: 100vh;
+			position: relative;
+			box-sizing: border-box;
+		}
+
+		.navbar {
+			position: fixed;
+			height: 80px;
+			width: 100%;
+			top: 0;
+			left: 0;
+			background: rgba(158, 200, 228, 0.568);
+			z-index: 100;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.navbar .logo {
+			width: 250px;
+			height: auto;
+			padding-left: 20px;
+		}
+
+		.navbar ul {
+			margin-right: 40px;
+			padding: 0;
+		}
+
+		.navbar ul li {
+			list-style: none;
+			margin: 0 8px;
+			display: inline-block;
+			line-height: 80px;
+			position: relative;
+		}
+
+		.navbar ul li a {
+			font-size: 20px;
+			color: white;
+			padding: 6px 15px;
+			text-decoration: none;
+			transition: .4s;
+		}
+
+		.navbar ul li a.active,
+		.navbar ul li a:hover {
+			background: rgb(100, 201, 248);
+			border-radius: 4px;
+		}
+
+		.center {
+			position: absolute;
+			left: 50%;
+			top: 52%;
+			transform: translate(-50%, -50%);
+			font-family: sans-serif;
+			user-select: none;
+			text-align: center;
+			width: 80%;
+			max-width: 900px;
+			z-index: 10;
+		}
+
+		.center h1 {
+			color: white;
+			font-size: 56px;
+			font-weight: bold;
+			margin-bottom: 20px;
+			text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+		}
+
+		.center h3 {
+			color: white;
+			font-size: 36px;
+			font-weight: 600;
+			margin-top: 10px;
+			text-shadow: 1px 1px 3px rgba(0,0,0,0.6);
+		}
+
+		.navbar .fa {
+			margin-right: 7px;
+		}
+
+		.sub-menu {
+			display: none;
+		}
+
+		.navbar ul li:hover .sub-menu {
+			display: block;
+			position: absolute;
+			background: rgba(158, 200, 228, 0.95);
+			top: 80px;
+			left: 0;
+			width: 160px;
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+			border-radius: 0 0 5px 5px;
+		}
+
+		.navbar ul li:hover .sub-menu ul {
+			display: block;
+			margin: 0;
+			padding: 0;
+		}
+
+		.navbar ul li:hover .sub-menu ul li {
+			display: block;
+			line-height: 40px;
+			margin: 0;
+			border-bottom: 1px solid rgba(255,255,255,0.3);
+		}
+
+		.navbar ul li:hover .sub-menu ul li a {
+			display: block;
+			padding: 5px 15px;
+			font-size: 18px;
+		}
+
+		/* Side Organ Images Pinned Cleanly Without Scrollbars */
+		.organ-side {
+			position: absolute;
+			width: 130px;
+			height: 120px;
+			object-fit: cover;
+			border-radius: 8px;
+			box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+			transition: transform 0.3s ease;
+		}
+		.organ-side:hover {
+			transform: scale(1.08);
+		}
+
+		.pos-eyes { left: 40px; top: 120px; }
+		.pos-heart { left: 40px; bottom: 40px; }
+		.pos-lungs { right: 40px; top: 110px; }
+		.pos-kidney { right: 40px; top: 50%; transform: translateY(-50%); }
+		.pos-kidney:hover { transform: translateY(-50%) scale(1.08); }
+		.pos-liver { right: 40px; bottom: 40px; }
+	</style>
+</head>
+
+<body>
+	<div class="wrapper">
+		<nav class="navbar">
+			<img class="logo" src="/images/LOGO22.png" alt="Life Donor Logo">
+			<ul>
+				<li><a class="active" href="/"><i class="fa fa-home" aria-hidden="true"></i><b>Home</b></a></li>
+				<li><a href="/about"><i class="fa fa-users" aria-hidden="true"></i><b>About</b></a></li>
+				<li><a href="/contact"><i class="fa fa-phone" aria-hidden="true"></i><b>Contact</b></a></li>
+				<li><a href="#"><i class="fa fa-sign-in"></i><b>Login</b></a>
+					<div class="sub-menu">
+						<ul>
+							<li><a href="/login1"><b>Doctor</b></a></li>
+							<li><a href="/login"><b>Donor</b></a></li>
+						</ul>
+					</div>
+				</li>
+			</ul>
+		</nav>
+
+		<div class="center">
+			<h1>Welcome to LIFE DONOR</h1>
+			<h3>"Save Lives by Donating."</h3>
+			<h3>"Come ahead and take part in saving lives."</h3>
+		</div>
+
+		<!-- Pinned Side Organ Images -->
+		<img class="organ-side pos-eyes" src="/images/eyes1.jpg" alt="Eyes">
+		<img class="organ-side pos-heart" src="/images/heart2.jpg" alt="Heart">
+		<img class="organ-side pos-lungs" src="/images/lungs1.jpg" alt="Lungs">
+		<img class="organ-side pos-kidney" src="/images/kidney2.jpg" alt="Kidney">
+		<img class="organ-side pos-liver" src="/images/liver2.jpg" alt="Liver">
+	</div>
+</body>
+</html>
