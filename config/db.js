@@ -1,24 +1,10 @@
 const mysql = require('mysql2/promise');
 const config = require('./config');
 
-// Step 1: Automatically ensure database exists on MySQL server
-(async () => {
-  try {
-    const tempConn = await mysql.createConnection({
-      host: config.db.host,
-      user: config.db.user,
-      password: config.db.password
-    });
-    await tempConn.query(`CREATE DATABASE IF NOT EXISTS \`${config.db.database}\`;`);
-    await tempConn.end();
-  } catch (err) {
-    // Suppress if MySQL server isn't running yet
-  }
-})();
-
-// Step 2: Connection Pool
+// Connection Pool
 const pool = mysql.createPool({
   host: config.db.host,
+  port: config.db.port,
   user: config.db.user,
   password: config.db.password,
   database: config.db.database,
@@ -27,9 +13,24 @@ const pool = mysql.createPool({
   queueLimit: 0
 });
 
-// Step 3: Automatically ensure all 7 core tables exist
+// Automatically ensure database and all 7 core tables exist
 const initTables = async () => {
   try {
+    // Step 1: Ensure database exists
+    try {
+      const tempConn = await mysql.createConnection({
+        host: config.db.host,
+        port: config.db.port,
+        user: config.db.user,
+        password: config.db.password
+      });
+      await tempConn.query(`CREATE DATABASE IF NOT EXISTS \`${config.db.database}\`;`);
+      await tempConn.end();
+    } catch (dbErr) {
+      // Ignore if database creation is restricted or already exists
+    }
+
+    // Step 2: Ensure Tables exist
     const conn = await pool.getConnection();
 
     await conn.query(`
@@ -118,15 +119,20 @@ const initTables = async () => {
     `);
 
     console.log('✅ Connected successfully to MySQL Database:', config.db.database);
-    console.log('📊 Database tables verified & ready.');
+    console.log('📊 All 7 database tables verified & ready.');
     conn.release();
+    return true;
   } catch (err) {
-    console.warn('⚠️ Warning: MySQL database connection could not be established immediately.');
-    console.warn('Reason:', err.message);
-    console.warn('💡 Tip: Ensure MySQL server is running or update database credentials in .env.');
+    console.warn('⚠️ MySQL table creation pending:', err.message);
+    return false;
   }
 };
 
+// Initial trigger
 initTables();
 
+// Export pool with initTables method attached
+pool.initTables = initTables;
+
 module.exports = pool;
+

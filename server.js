@@ -48,6 +48,20 @@ const poaRoutes = require('./routes/poa');
 app.get('/', (req, res) => res.render('home'));
 app.get('/about', (req, res) => res.render('about'));
 
+// Route to manually initialize database tables anytime
+app.get('/init-db', async (req, res) => {
+  try {
+    const success = await db.initTables();
+    if (success) {
+      res.send('<h2>✅ Success: All 7 MySQL database tables created & verified!</h2><p><a href="/register">Go to Register</a></p>');
+    } else {
+      res.status(500).send('<h2>⚠️ Warning: Table initialization could not complete. Check server logs.</h2>');
+    }
+  } catch (err) {
+    res.status(500).send(`<h2>❌ Error: ${err.message}</h2>`);
+  }
+});
+
 // Contact Page GET
 app.get('/contact', (req, res) => res.render('contact'));
 
