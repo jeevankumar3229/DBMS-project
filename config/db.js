@@ -121,10 +121,10 @@ const initTables = async () => {
     console.log('✅ Connected successfully to MySQL Database:', config.db.database);
     console.log('📊 All 7 database tables verified & ready.');
     conn.release();
-    return true;
+    return { success: true, database: config.db.database };
   } catch (err) {
-    console.warn('⚠️ MySQL table creation pending:', err.message);
-    return false;
+    console.warn('⚠️ MySQL table creation error:', err.message);
+    return { success: false, error: err.message, database: config.db.database };
   }
 };
 

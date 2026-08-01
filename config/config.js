@@ -9,7 +9,7 @@ function getDbConfig() {
   let port = parseInt(process.env.DB_PORT || process.env.MYSQLPORT || '3306', 10);
   let user = process.env.DB_USER || process.env.MYSQLUSER || 'root';
   let password = process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || '';
-  let database = process.env.DB_NAME || process.env.MYSQLDATABASE || 'organdonation';
+  let database = process.env.MYSQLDATABASE || process.env.DB_NAME || 'organdonation';
 
   // Handle full connection strings like mysql://user:pass@host:port/dbname
   const connUrl = process.env.MYSQL_URL || process.env.DATABASE_URL || (rawHost.startsWith('mysql://') ? rawHost : null);

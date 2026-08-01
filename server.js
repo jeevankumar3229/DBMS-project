@@ -51,14 +51,14 @@ app.get('/about', (req, res) => res.render('about'));
 // Route to manually initialize database tables anytime
 app.get('/init-db', async (req, res) => {
   try {
-    const success = await db.initTables();
-    if (success) {
-      res.send('<h2>✅ Success: All 7 MySQL database tables created & verified!</h2><p><a href="/register">Go to Register</a></p>');
+    const result = await db.initTables();
+    if (result && result.success) {
+      res.send(`<h2>✅ Success: All 7 MySQL database tables created & verified in database "${result.database}"!</h2><p><a href="/register">Go to Register</a></p>`);
     } else {
-      res.status(500).send('<h2>⚠️ Warning: Table initialization could not complete. Check server logs.</h2>');
+      res.status(500).send(`<h2>⚠️ Table initialization error: ${result ? result.error : 'Unknown error'}</h2><p>Database: ${result ? result.database : 'N/A'}</p>`);
     }
   } catch (err) {
-    res.status(500).send(`<h2>❌ Error: ${err.message}</h2>`);
+    res.status(500).send(`<h2>❌ Server Error: ${err.message}</h2>`);
   }
 });
 
